@@ -14,7 +14,7 @@ from langchain_core.documents import Document
  
  
  
-os.environ["GOOGLE_API_KEY"] = "AIzaSyAmntp5ENTcxC_SBL1Yo4lL1eTtZDb4rWQ" # here put your api key
+os.environ["GOOGLE_API_KEY"] = "API_KEY" # here put your api key
  
 # this how we create FastAPI
 app = FastAPI()
