@@ -14,7 +14,7 @@ from langchain_core.documents import Document
  
  
  
-os.environ["GEMINI_API_KEY"] = os.getenv("GEMINI_API_KEY") # here put your api key
+os.environ["GEMINI_API_KEY"] = os.getenv("GEMINI_API_KEY", "")
  
 # this how we create FastAPI
 app = FastAPI()
