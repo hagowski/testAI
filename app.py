@@ -55,30 +55,33 @@ llm = ChatGoogleGenerativeAI(
 @app.post("/ingest")
 def ingest(req: IngestRequest):
     global vector_store
- 
- 
-    loader = PyPDFLoader(req.file_path)
-    docs = loader.load()
- 
- 
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=100
-    )
-    splits = splitter.split_documents(docs)
- 
- 
-    vector_store = Chroma(
-        collection_name="rag_collection",
-        embedding_function=embeddings,
-        persist_directory="./chroma_db"
-    )
- 
- 
-    vector_store.add_documents(splits)
- 
- 
-    return {"status": "Documents ingested", "chunks": len(splits)}
+
+    try:
+        loader = PyPDFLoader(req.file_path)
+        docs = loader.load()
+
+
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,
+            chunk_overlap=100
+        )
+        splits = splitter.split_documents(docs)
+
+
+        vector_store = Chroma(
+            collection_name="rag_collection",
+            embedding_function=embeddings,
+            persist_directory="./chroma_db"
+        )
+
+
+        vector_store.add_documents(splits)
+
+
+        return {"status": "Documents ingested", "chunks": len(splits)}
+    except Exception as e:
+        import traceback
+        return {"error": str(e), "traceback": traceback.format_exc()}
  
  
  
